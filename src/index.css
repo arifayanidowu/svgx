@@ -1,0 +1,31 @@
+html, body {
+  font-family: "Abel", sans-serif !important;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #1d1f21;
+}
+
+.ace_editor {
+  width: 800px;
+  min-width: 100%;
+  min-height: 100vh;
+  line-height: 1.6;
+  font-size: 14px;
+}
+.ace_scroller {
+  margin: 15px 0 0;
+}
+.ace_content {
+  border-left: 2px solid #646464 !important;
+}
+.ace_gutter {
+  padding: 15px 0 0;
+}
+
+.ace_gutter-cell {
+  padding: 0 20px;
+}
