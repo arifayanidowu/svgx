@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AppBar, Toolbar, useMediaQuery } from "@mui/material";
 import Logo from "./Logo";
 import DesktopNav from "./DesktopNav";
@@ -12,6 +12,17 @@ const Navbar = () => {
   const { isLightMode } = useAppSelector((state) => state.app);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+
+  useEffect(() => {
+    if (!isLightMode!) {
+      window.document.body.classList.add("light");
+    } else {
+      window.document.body.classList.remove("light");
+    }
+    return () => {
+      window.document.body.classList.remove("light");
+    };
+  }, [isLightMode]);
 
   const toggleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
