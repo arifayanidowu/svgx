@@ -3,11 +3,10 @@ import { GithubLink } from "./DesktopNav";
 import { Lightbulb } from "@mui/icons-material";
 import MobileDropdown from "./MobileDropdown";
 import ReactIcon from "../icons/ReactIcon";
+import { CustomMenuProps } from "./CustomMenu";
 
-interface IMobileNav {
-  open: boolean;
-  handleClose: () => void;
-  anchorEl: HTMLElement | null;
+interface IMobileNav
+  extends Pick<CustomMenuProps, "anchorEl" | "open" | "handleClose"> {
   toggleMenu: (event: React.MouseEvent<HTMLElement>) => void;
   toggleMode: () => void;
   isLightMode: boolean;
@@ -31,7 +30,7 @@ const MobileNav = ({
       <IconButton color="info" onClick={toggleMode}>
         <Lightbulb
           sx={{
-            color: isLightMode ? "#aaa" : "orange",
+            color: isLightMode ? "#aaa" : "#ffe700",
           }}
         />
       </IconButton>

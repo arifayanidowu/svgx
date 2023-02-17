@@ -44,12 +44,12 @@ const css = (animate: boolean) => ({
 });
 
 const DesktopNav = () => {
+  const dispatch = useAppDispatch();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [animate, setAnimate] = useState(false);
   const { framework, isSingleQuote, isLightMode } = useAppSelector(
     (state) => state.app
   );
-  const dispatch = useAppDispatch();
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -155,7 +155,7 @@ const DesktopNav = () => {
           >
             <Lightbulb
               sx={{
-                color: isLightMode ? "#aaa" : "orange",
+                color: isLightMode ? "#aaa" : "#ffe700",
               }}
             />
           </IconButton>

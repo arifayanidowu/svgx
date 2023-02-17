@@ -7,7 +7,9 @@ import {
   Editor,
   SkeletonLoader,
 } from "../components";
+import Notice from "../components/Notice";
 import { useEditor } from "../hooks";
+import { useAppSelector } from "../state/hooks";
 
 const Index = () => {
   const {
@@ -20,6 +22,7 @@ const Index = () => {
     handleClose,
     appLoading,
   } = useEditor();
+  const { framework } = useAppSelector((state) => state.app);
 
   return (
     <Layout>
@@ -48,6 +51,10 @@ const Index = () => {
           )}
           {!appLoading ? null : <SkeletonLoader />}
           <Editor mode="tsx" code={output} name="svg-editor" isReadOnly />
+          <Notice
+            visible={!!output && framework === "react-native"}
+            title="To use Svg in React Native, you need to install react-native-svg package."
+          />
         </Grid>
       </Grid>
       <Toast

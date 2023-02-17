@@ -9,7 +9,7 @@ export const useEditor = () => {
   const [code, setCode] = useState("");
   const [output, setOutput] = useState("");
   const [open, setOpen] = useState(false);
-  const [clipboardText, setClipboardText] = useState("Copy to Clipboard");
+  const [clipboardText, setClipboardText] = useState("Copy");
   const { loading, framework } = useAppSelector((state) => state.app);
 
   useEffect(() => {
@@ -69,7 +69,7 @@ export const useEditor = () => {
     setOpen(true);
     setClipboardText("Copied!");
     setTimeout(() => {
-      setClipboardText("Copy to clipboard");
+      setClipboardText("Copy");
     }, 2000);
   };
 
