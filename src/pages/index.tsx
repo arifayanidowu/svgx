@@ -10,7 +10,6 @@ import {
 import Notice from "../components/Notice";
 import { useEditor } from "../hooks";
 import { useAppSelector } from "../state/hooks";
-// import { parseCode } from "../utils/parseCode";
 
 const Index = () => {
   const {
@@ -24,28 +23,6 @@ const Index = () => {
     appLoading,
   } = useEditor();
   const { framework } = useAppSelector((state) => state.app);
-
-  const handleChange = (value: string) => {
-    const file = new File([value], "file.svg", {
-      type: "image/svg+xml",
-    });
-
-    if (file.type !== "image/svg+xml") {
-      alert("Please upload a valid SVG file");
-      return;
-    }
-
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const text = e.target?.result;
-        if (text) {
-          setCode(text?.toString());
-        }
-      };
-      reader.readAsText(file);
-    }
-  };
 
   return (
     <Layout>
@@ -69,7 +46,9 @@ const Index = () => {
               mode="tsx"
               code={code}
               name="svg-editor"
-              onChange={handleChange}
+              onChange={(value) => {
+                setCode(value);
+              }}
             />
           </>
         </Grid>
