@@ -8,7 +8,7 @@ const css = (isLightMode: boolean, matches: boolean, visible: boolean) => ({
   zIndex: 1,
   padding: 2,
   borderRadius: 0,
-  backgroundColor: isLightMode ? "#e49c9c3d" : "#000",
+  backgroundColor: isLightMode ? "rgba(237, 108, 2, 0.04)" : "#000",
   color: isLightMode ? "#000" : "#fff",
   visibility: visible ? "visible" : "hidden",
   maxWidth: matches ? 300 : 400,

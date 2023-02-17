@@ -16,14 +16,14 @@ vi.mock("./state/hooks", async () => ({
 }));
 
 describe("App", () => {
-  it("should render", () => {
+  it("should render GitHubIcon", () => {
     const screen = renderWithProviders(<App />);
-    expect(screen.getByText("single quotes")).toBeInTheDocument();
+    expect(screen.getByTestId("GitHubIcon")).toBeInTheDocument();
   });
 
-  it("should render react text in button", async () => {
+  it("should render logo", async () => {
     const screen = renderWithProviders(<App />);
 
-    expect(screen.getByTestId("framework-button")).toBeInTheDocument();
+    expect(screen.getByTestId("logo")).toBeInTheDocument();
   });
 });
