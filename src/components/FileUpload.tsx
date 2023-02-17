@@ -64,11 +64,6 @@ export const FileUpload = ({ setCode }: IFileUpload) => {
       reader.onload = (event) => {
         const result = event.target?.result;
         if (result) {
-          setToast({
-            open: true,
-            message: "File uploaded successfully",
-            severity: "success",
-          });
           setCode(result.toString());
         }
       };
