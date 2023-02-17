@@ -21,7 +21,7 @@ const MobileNav = ({
   isLightMode,
 }: IMobileNav) => {
   return (
-    <Box>
+    <Box data-testid="MobileNav">
       <GithubLink />
       <IconButton onClick={toggleMenu} color="inherit">
         <ReactIcon color="warning" fontSize="medium" />

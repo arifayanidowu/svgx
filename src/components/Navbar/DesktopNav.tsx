@@ -82,6 +82,7 @@ const DesktopNav = () => {
         alignItems: "center",
         justifyContent: "space-evenly",
       }}
+      data-testid="DesktopNav"
     >
       <Box>
         <Tooltip title="Reload Page" arrow placement="left">

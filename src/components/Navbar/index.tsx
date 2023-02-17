@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { AppBar, Toolbar, useMediaQuery } from "@mui/material";
 import Logo from "./Logo";
-import { useAppDispatch, useAppSelector } from "../../state/hooks";
-import { onToggleMode } from "../../state/slices/appSlice";
 import DesktopNav from "./DesktopNav";
 import MobileNav from "./MobileNav";
+import { useAppDispatch, useAppSelector } from "../../state/hooks";
+import { onToggleMode } from "../../state/slices/appSlice";
 
 const Navbar = () => {
   const dispatch = useAppDispatch();
