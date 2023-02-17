@@ -22,45 +22,48 @@ const Navbar = () => {
   };
 
   return (
-    <AppBar
-      position="relative"
-      sx={{
-        backgroundColor: isLightMode ? "#dcdcdc" : "#0a3e4b",
-        minWidth: window.innerWidth,
-        width: "100%",
-      }}
-      elevation={0}
-      color={isLightMode ? "transparent" : "primary"}
-      aria-label="Main Navigation"
-      data-testid="navbar"
-    >
-      <Toolbar
+    <>
+      <AppBar
+        position="fixed"
         sx={{
-          minHeight: 46,
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
+          backgroundColor: isLightMode ? "#dcdcdc" : "#0a3e4b",
+          minWidth: window.innerWidth,
+          width: "100%",
         }}
+        elevation={0}
+        color={isLightMode ? "transparent" : "primary"}
+        aria-label="Main Navigation"
+        data-testid="navbar"
       >
-        <Logo mode={isLightMode} />
-        {!matches ? (
-          <MobileNav
-            {...{
-              open,
-              handleClose,
-              anchorEl,
-              toggleMenu,
-              isLightMode: isLightMode!,
-              toggleMode: () => {
-                dispatch(onToggleMode());
-              },
-            }}
-          />
-        ) : (
-          <DesktopNav />
-        )}
-      </Toolbar>
-    </AppBar>
+        <Toolbar
+          sx={{
+            minHeight: 46,
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Logo mode={isLightMode} />
+          {!matches ? (
+            <MobileNav
+              {...{
+                open,
+                handleClose,
+                anchorEl,
+                toggleMenu,
+                isLightMode: isLightMode!,
+                toggleMode: () => {
+                  dispatch(onToggleMode());
+                },
+              }}
+            />
+          ) : (
+            <DesktopNav />
+          )}
+        </Toolbar>
+      </AppBar>
+      <Toolbar />
+    </>
   );
 };
 

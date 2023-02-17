@@ -30,6 +30,8 @@ export const GithubLink = () => (
     color="inherit"
     LinkComponent={Link}
     aria-label="Github Repository Link"
+    href="https://github.com/stizzle123/svgx"
+    target="_blank"
   >
     <GitHub />
   </IconButton>

@@ -41,7 +41,7 @@ const Notice = ({ title, visible }: INotice) => {
     >
       <Text
         sx={{
-          fontSize: matches ? 12 : 9,
+          fontSize: matches ? 9 : 12,
         }}
       >
         {title}
