@@ -12,7 +12,7 @@ interface IEditorProps {
   mode: string;
   name: string;
   code: string;
-  onChange?: (code: string) => void;
+  onChange?: (value: string) => void;
   debounceChangePeriod?: number;
   isReadOnly: boolean;
 }
@@ -43,6 +43,7 @@ export const Editor = ({
       editorProps={{ $blockScrolling: Infinity }}
       setOptions={{ showFoldWidgets: false }}
       readOnly={isReadOnly}
+      height={window.innerHeight + "px"}
     />
   );
 };

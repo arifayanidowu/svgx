@@ -22,7 +22,6 @@ export const useEditor = () => {
   useEffect(() => {
     if (code !== "") {
       const tags = extractTags(code); // Extract svg tags
-
       const output = `
             import React, {memo} from "react";
             ${
@@ -33,7 +32,7 @@ export const useEditor = () => {
         
             function MySvg() {
               return (
-                  ${code}
+                  ${code.replace(/;/g, "")}
               );
             }
       

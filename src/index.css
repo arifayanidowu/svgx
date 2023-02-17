@@ -27,6 +27,9 @@ body.light {
 }
 .ace_content {
   border-left: 2px solid #646464 !important;
+  /* min-height: 130vh !important; */
+  height: 130vh !important;
+  padding-bottom: 300px !important;
 }
 .ace_gutter {
   padding: 15px 0 0;

@@ -8,7 +8,7 @@ interface ILayoutProps {
 
 export const Layout = ({ children }: ILayoutProps) => {
   return (
-    <Box sx={{ width: "100%" }} data-testid="layout">
+    <Box sx={{ width: "100%", overflowY: "hidden" }} data-testid="layout">
       <Navbar />
       {children}
     </Box>

@@ -12,5 +12,6 @@ export const svgTagsToUpperCase = (svg: string) => {
       }
     }
   );
+
   return parsedSvgString;
 };
