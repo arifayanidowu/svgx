@@ -6,7 +6,7 @@ const css = (isLightMode: boolean, matches: boolean, visible: boolean) => ({
   position: "absolute",
   right: 20,
   zIndex: 1,
-  padding: 2,
+  padding: 1.5,
   borderRadius: 0,
   backgroundColor: isLightMode ? "rgba(237, 108, 2, 0.04)" : "#000",
   color: isLightMode ? "#000" : "#fff",
@@ -32,6 +32,7 @@ interface INotice {
 const Notice = ({ title, visible }: INotice) => {
   const matches = useMediaQuery("(max-width:600px)");
   const { isLightMode } = useAppSelector((state) => state.app);
+
   return (
     <Paper
       sx={{

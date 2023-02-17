@@ -62,7 +62,11 @@ const Navbar = () => {
           )}
         </Toolbar>
       </AppBar>
-      <Toolbar />
+      <Toolbar
+        sx={{
+          minHeight: matches ? 56 : 46,
+        }}
+      />
     </>
   );
 };

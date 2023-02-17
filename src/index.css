@@ -6,8 +6,13 @@ html, body {
 }
 
 body {
-  background-color: #1d1f21;
+  background-color: #f5f5f5;
   transition: all 0.1s ease-in-out;
+}
+
+body.light {
+  background-color: #1d1f21;
+
 }
 
 .ace_editor {

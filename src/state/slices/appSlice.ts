@@ -43,6 +43,7 @@ export const appSlice = createSlice({
     onToggleMode: (state) => {
       state.isLightMode = !state.isLightMode;
       localStorage.setItem("isLightMode", String(state.isLightMode));
+      window.document.body.classList.toggle("light");
     },
   },
 });

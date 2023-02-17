@@ -9,14 +9,7 @@ export function renderWithProviders(
   ui: React.ReactElement<any, string | React.JSXElementConstructor<any>>,
   {
     // @ts-ignore
-    preloadedState = {
-      app: {
-        loading: false,
-        framework: "react",
-        isSingleQuote: false,
-        isLightMode: true,
-      },
-    },
+    preloadedState = {},
     // Automatically create a store instance if no store was passed in
     store = configureStore({
       reducer: { app: appSlice },

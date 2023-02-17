@@ -53,7 +53,7 @@ const Index = () => {
           <Editor mode="tsx" code={output} name="svg-editor" isReadOnly />
           <Notice
             visible={!!output && framework === "react-native"}
-            title="To use Svg in React Native, you need to install react-native-svg package."
+            title="To use SVG in React Native, install the 'react-native-svg' package"
           />
         </Grid>
       </Grid>
