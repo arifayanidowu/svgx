@@ -27,7 +27,7 @@ const MobileNav = ({
         <ReactIcon color="warning" fontSize="medium" />
       </IconButton>
       <MobileDropdown {...{ open, handleClose, anchorEl }} />
-      <IconButton color="info" onClick={toggleMode}>
+      <IconButton color="info" onClick={toggleMode} data-testid="toggle-theme">
         <Lightbulb
           sx={{
             color: isLightMode ? "#aaa" : "#ffe700",

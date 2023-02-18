@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import {
   Box,
   FormControlLabel,
@@ -52,6 +52,7 @@ const DesktopNav = () => {
   const { framework, isSingleQuote, isLightMode } = useAppSelector(
     (state) => state.app
   );
+  const toggle = useCallback(() => dispatch(onToggleSingleQuote()), []);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -60,10 +61,6 @@ const DesktopNav = () => {
   const handleChangeFramework = (framework: "react" | "react-native") => {
     dispatch(onChangeFramework(framework));
     setAnchorEl(null);
-  };
-
-  const toggle = () => {
-    dispatch(onToggleSingleQuote());
   };
 
   const reload = () => {
@@ -110,6 +107,7 @@ const DesktopNav = () => {
           }}
           checked={isSingleQuote}
           onChange={toggle}
+          data-testid="single-quote-switch"
         />
       </Box>
 
@@ -155,6 +153,7 @@ const DesktopNav = () => {
             onClick={() => {
               dispatch(onToggleMode());
             }}
+            data-testid="toggle-theme"
           >
             <Lightbulb
               sx={{

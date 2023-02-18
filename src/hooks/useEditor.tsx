@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { IToastProps } from "../components";
+import type { IToastProps } from "../components";
 import { useAppDispatch, useAppSelector } from "../state/hooks";
 import { onLoad, onLoaded } from "../state/slices/appSlice";
 import { getOutput, svgTagsToUpperCase } from "../utils";
@@ -26,6 +26,16 @@ export const useEditor = () => {
   }, [dispatch, onLoad]);
 
   useEffect(() => {
+    if (code.length) {
+      setToast({
+        message: "SVG converted successfully",
+        severity: "success",
+        open: true,
+      });
+    }
+  }, [code]);
+
+  useEffect(() => {
     (async () => {
       if (code.length) {
         try {
@@ -36,14 +46,7 @@ export const useEditor = () => {
             ""
           );
           const convertedOutput = svgTagsToUpperCase(cleanedOutput); // Convert svg tags to uppercase
-
           setOutput(framework === "react-native" ? convertedOutput : output!);
-
-          setToast({
-            message: "SVG converted successfully",
-            severity: "success",
-            open: true,
-          });
         } catch (error: unknown) {
           let err = error as { message: string };
           setToast({

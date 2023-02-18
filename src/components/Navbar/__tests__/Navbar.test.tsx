@@ -1,8 +1,11 @@
+import { fireEvent } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import Navbar from "..";
 import { renderWithProviders } from "../../../../test-utils";
 
-let matches = vi.fn().mockReturnValue(false);
+const matches = vi.fn().mockReturnValue(false);
+const isLightMode = vi.fn().mockReturnValue(true);
+const onToggleSingleQuote = vi.fn();
 const onToggleMode = vi.fn();
 
 vi.mock("@mui/material", async () => {
@@ -13,6 +16,14 @@ vi.mock("@mui/material", async () => {
   };
 });
 
+vi.mock("../../state/hooks", async () => ({
+  __esModule: true,
+  useAppDispatch: () => () => {
+    onToggleSingleQuote();
+  },
+  useAppSelector: () => ({ isLightMode: isLightMode() }),
+}));
+
 vi.mock("../../state/slices/appSlice", async () => ({
   __esModule: true,
   onToggleMode: () => onToggleMode(),
@@ -20,12 +31,21 @@ vi.mock("../../state/slices/appSlice", async () => ({
 
 vi.mock("../DesktopNav", async () => ({
   __esModule: true,
-  default: () => <div data-testid="DesktopNav" />,
+  default: () => (
+    <div data-testid="DesktopNav">
+      <button data-testid="toggle-theme" onClick={onToggleMode} />
+      <button data-testid="single-quote-switch" onClick={onToggleSingleQuote} />
+    </div>
+  ),
 }));
 
 vi.mock("../MobileNav", async () => ({
   __esModule: true,
-  default: () => <div data-testid="MobileNav" />,
+  default: () => (
+    <div data-testid="MobileNav">
+      <button data-testid="toggle-theme" onClick={onToggleMode} />
+    </div>
+  ),
 }));
 
 vi.mock("../Logo", async () => ({
@@ -53,5 +73,23 @@ describe("Navbar", () => {
   it("should render Logo", () => {
     const screen = renderWithProviders(<Navbar />);
     expect(screen.getByTestId("logo")).toBeInTheDocument();
+  });
+
+  it("should toggle theme on DesktopNav", () => {
+    matches.mockReturnValue(true);
+    const screen = renderWithProviders(<Navbar />);
+    fireEvent.click(screen.getByTestId("toggle-theme"));
+    isLightMode.mockReturnValue(true);
+    expect(onToggleMode).toHaveBeenCalled();
+    expect(isLightMode()).toBe(true);
+  });
+
+  it("should toggle theme on MobileNav", () => {
+    matches.mockReturnValue(false);
+    const screen = renderWithProviders(<Navbar />);
+    fireEvent.click(screen.getByTestId("toggle-theme"));
+    isLightMode.mockReturnValue(true);
+    expect(onToggleMode).toHaveBeenCalled();
+    expect(isLightMode()).toBe(true);
   });
 });

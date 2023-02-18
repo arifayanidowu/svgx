@@ -27,6 +27,7 @@ export const ClipboardCopy = ({ onCopy, text }: IClipboardCopyProps) => {
           textTransform: "none",
           borderRadius: 0,
         }}
+        data-testid="copy-button"
       >
         {text}
       </CustomButton>

@@ -2,7 +2,7 @@ import React, { useCallback, useState } from "react";
 import { styled } from "@mui/material";
 import { useDropzone } from "react-dropzone";
 import { Text } from "./Text";
-import { Toast } from "./Toast";
+import { Toast, IToastProps } from "./Toast";
 import { useAppSelector } from "../state/hooks";
 
 interface IFileUpload {
@@ -36,15 +36,11 @@ const StyleDiv = styled("div")(({ theme }) => ({
   textAlign: "center",
 }));
 
-type IToast = {
-  open: boolean;
-  message: string;
-  severity: "error" | "success" | "info" | "warning";
-};
-
 export const FileUpload = ({ setCode }: IFileUpload) => {
   const { isLightMode } = useAppSelector((state) => state.app);
-  const [toast, setToast] = useState<IToast>({
+  const [toast, setToast] = useState<
+    Pick<IToastProps, "open" | "message" | "severity">
+  >({
     open: false,
     message: "",
     severity: "error",

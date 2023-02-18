@@ -44,6 +44,7 @@ export const Editor = ({
       setOptions={{ showFoldWidgets: false, autoScrollEditorIntoView: true }}
       readOnly={isReadOnly}
       placeholder={placeholder}
+      data-testid="AceEditor"
     />
   );
 };

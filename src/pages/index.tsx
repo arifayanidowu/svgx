@@ -39,6 +39,7 @@ const Index = () => {
           height: "100%",
           overflowX: "hidden",
         }}
+        data-testid="index"
       >
         <Grid item md={6} sx={{ position: "relative", width: "100%" }}>
           <>
