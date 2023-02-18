@@ -1,4 +1,5 @@
 import { Grid } from "@mui/material";
+import { useMemo } from "react";
 import {
   ClipboardCopy,
   FileUpload,
@@ -10,19 +11,24 @@ import {
 import Notice from "../components/Notice";
 import { useEditor } from "../hooks";
 import { useAppSelector } from "../state/hooks";
+import { parseCode } from "../utils";
 
 const Index = () => {
   const {
     code,
     setCode,
     output,
-    open,
+    toast,
     clipboardText,
     handleCopy,
     handleClose,
     appLoading,
   } = useEditor();
-  const { framework } = useAppSelector((state) => state.app);
+  const { framework, isSingleQuote } = useAppSelector((state) => state.app);
+  const prettyOutput = useMemo(
+    () => parseCode(output)({ singleQuote: isSingleQuote! }),
+    [output, isSingleQuote]
+  );
 
   return (
     <Layout>
@@ -46,9 +52,10 @@ const Index = () => {
               mode="tsx"
               code={code}
               name="svg-editor"
-              onChange={(value) => {
+              onPaste={(value) => {
                 setCode(value);
               }}
+              placeholder="Paste your SVG code here"
             />
           </>
         </Grid>
@@ -57,7 +64,12 @@ const Index = () => {
             <ClipboardCopy onCopy={handleCopy} text={clipboardText} />
           )}
           {!appLoading ? null : <SkeletonLoader />}
-          <Editor mode="tsx" code={output} name="svg-editor" isReadOnly />
+          <Editor
+            mode="tsx"
+            code={prettyOutput!}
+            name="svg-editor-2"
+            isReadOnly
+          />
           <Notice
             visible={!!output && framework === "react-native"}
             title="To use SVG in React Native, install the 'react-native-svg' package"
@@ -65,9 +77,10 @@ const Index = () => {
         </Grid>
       </Grid>
       <Toast
-        open={open}
-        message="Copied to clipboard"
+        open={toast.open}
+        message={toast.message}
         handleClose={handleClose}
+        severity={toast.severity}
       />
     </Layout>
   );

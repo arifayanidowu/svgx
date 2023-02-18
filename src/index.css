@@ -8,11 +8,11 @@ html, body {
 body {
   background-color: #f5f5f5;
   transition: all 0.1s ease-in-out;
+  /* overflow-y: hidden; */
 }
 
 body.light {
   background-color: #1d1f21;
-
 }
 
 .ace_editor {
@@ -27,9 +27,6 @@ body.light {
 }
 .ace_content {
   border-left: 2px solid #646464 !important;
-  /* min-height: 130vh !important; */
-  height: 130vh !important;
-  padding-bottom: 300px !important;
 }
 .ace_gutter {
   padding: 15px 0 0;

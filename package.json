@@ -24,6 +24,7 @@
     "@types/prettier": "^2.7.2",
     "brace": "^0.11.1",
     "html-prettify": "^1.0.7",
+    "is-svg": "^4.3.2",
     "prettier": "^2.8.4",
     "react": "^18.2.0",
     "react-ace": "^10.1.0",
@@ -32,6 +33,7 @@
     "react-redux": "^8.0.5"
   },
   "devDependencies": {
+    "@svgr/plugin-prettier": "^6.5.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/react-hooks": "^8.0.1",

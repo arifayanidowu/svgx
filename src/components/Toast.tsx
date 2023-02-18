@@ -2,8 +2,8 @@ import React from "react";
 import { Snackbar, IconButton, Alert } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 
-interface IToastProps {
-  handleClose: (event: React.SyntheticEvent | Event, reason?: string) => void;
+export interface IToastProps {
+  handleClose?: (event: React.SyntheticEvent | Event, reason?: string) => void;
   open: boolean;
   timeout?: number;
   message: string;

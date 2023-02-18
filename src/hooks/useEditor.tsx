@@ -1,15 +1,21 @@
 import { useState, useEffect } from "react";
+import { IToastProps } from "../components";
 import { useAppDispatch, useAppSelector } from "../state/hooks";
 import { onLoad, onLoaded } from "../state/slices/appSlice";
-import { extractTags } from "../utils/extractTags";
-import { svgTagsToUpperCase } from "../utils/svgTagsToUppercase";
+import { getOutput, svgTagsToUpperCase } from "../utils";
 
 export const useEditor = () => {
   const dispatch = useAppDispatch();
   const [code, setCode] = useState("");
   const [output, setOutput] = useState("");
-  const [open, setOpen] = useState(false);
   const [clipboardText, setClipboardText] = useState("Copy");
+  const [toast, setToast] = useState<
+    Omit<IToastProps, "handleClose" | "timeout">
+  >({
+    open: false,
+    message: "",
+    severity: undefined,
+  });
   const { loading, framework } = useAppSelector((state) => state.app);
 
   useEffect(() => {
@@ -20,36 +26,34 @@ export const useEditor = () => {
   }, [dispatch, onLoad]);
 
   useEffect(() => {
-    if (code !== "") {
-      const tags = extractTags(code); // Extract svg tags
-      const output = `
-            import React, {memo} from "react";
-            ${
-              framework === "react-native"
-                ? `import Svg, { ${tags!.join(", ")} } from "react-native-svg"`
-                : "\n"
-            };
-        
-            function MySvg() {
-              return (
-                  ${code.replace(/;/g, "")}
-              );
-            }
-      
-            export default memo(MySvg);
-            `;
+    (async () => {
+      if (code.length) {
+        try {
+          const output = await getOutput(code, framework);
+          //Remove xmlns from svg for react-native-svg package
+          const cleanedOutput = output!.replace(
+            /xmlns=["']http:\/\/www\.w3\.org\/2000\/svg["']/g,
+            ""
+          );
+          const convertedOutput = svgTagsToUpperCase(cleanedOutput); // Convert svg tags to uppercase
 
-      //Remove xmlns from svg for react-native-svg package
-      const cleanedOutput = output.replace(
-        /xmlns=["']http:\/\/www\.w3\.org\/2000\/svg["']/g,
-        ""
-      );
-      const convertedOutput = svgTagsToUpperCase(cleanedOutput); // Convert svg tags to uppercase
+          setOutput(framework === "react-native" ? convertedOutput : output!);
 
-      setOutput(framework === "react-native" ? convertedOutput : output);
-    } else {
-      setOutput("");
-    }
+          setToast({
+            message: "SVG converted successfully",
+            severity: "success",
+            open: true,
+          });
+        } catch (error: unknown) {
+          let err = error as { message: string };
+          setToast({
+            message: err?.message,
+            severity: "error",
+            open: true,
+          });
+        }
+      }
+    })();
   }, [code, framework]);
 
   const handleClose = (
@@ -59,13 +63,20 @@ export const useEditor = () => {
     if (reason === "clickaway") {
       return;
     }
-
-    setOpen(false);
+    setToast({
+      open: false,
+      message: "",
+      severity: undefined,
+    });
   };
 
   const handleCopy = () => {
     navigator.clipboard.writeText(output);
-    setOpen(true);
+    setToast({
+      message: "Copied to clipboard",
+      severity: "success",
+      open: true,
+    });
     setClipboardText("Copied!");
     setTimeout(() => {
       setClipboardText("Copy");
@@ -77,8 +88,7 @@ export const useEditor = () => {
     setCode,
     output,
     setOutput,
-    open,
-    setOpen,
+    toast,
     clipboardText,
     setClipboardText,
     handleClose,

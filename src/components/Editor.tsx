@@ -2,48 +2,48 @@ import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-tsx";
 import "ace-builds/src-noconflict/theme-tomorrow_night";
 import "ace-builds/src-noconflict/theme-tomorrow";
-
 import "brace/mode/jsx";
 import "brace/mode/xml";
-import { parseCode } from "../utils/parseCode";
 import { useAppSelector } from "../state/hooks";
 
 interface IEditorProps {
   mode: string;
   name: string;
   code: string;
-  onChange?: (value: string) => void;
+  onChange?: (value: string, event: any) => void;
+  onPaste?: (value: string) => void;
   debounceChangePeriod?: number;
   isReadOnly: boolean;
+  placeholder?: string;
 }
 
 export const Editor = ({
   mode,
   name,
   code,
-  onChange,
+  onPaste,
   debounceChangePeriod,
   isReadOnly,
+  placeholder,
 }: IEditorProps) => {
-  const { isSingleQuote, isLightMode } = useAppSelector((state) => state.app);
-  const prettyCode = parseCode(code)({ singleQuote: isSingleQuote! });
+  const { isLightMode } = useAppSelector((state) => state.app);
 
   return (
     <AceEditor
       mode={mode}
       theme={isLightMode ? "tomorrow" : "tomorrow_night"}
       name={name}
-      fontSize={13}
+      fontSize={12}
       showPrintMargin={true}
       showGutter={true}
-      onChange={onChange}
+      onPaste={onPaste}
       highlightActiveLine={true}
-      value={prettyCode}
+      value={code}
       debounceChangePeriod={debounceChangePeriod}
       editorProps={{ $blockScrolling: Infinity }}
-      setOptions={{ showFoldWidgets: false }}
+      setOptions={{ showFoldWidgets: false, autoScrollEditorIntoView: true }}
       readOnly={isReadOnly}
-      height={window.innerHeight + "px"}
+      placeholder={placeholder}
     />
   );
 };
