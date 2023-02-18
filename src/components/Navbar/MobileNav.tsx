@@ -1,9 +1,9 @@
 import { Box, IconButton } from "@mui/material";
-import { GithubLink } from "./DesktopNav";
 import { Lightbulb } from "@mui/icons-material";
+import { GithubLink } from "./DesktopNav";
 import MobileDropdown from "./MobileDropdown";
-import ReactIcon from "../icons/ReactIcon";
 import { CustomMenuProps } from "./CustomMenu";
+import ReactIcon from "../icons/ReactIcon";
 
 interface IMobileNav
   extends Pick<CustomMenuProps, "anchorEl" | "open" | "handleClose"> {

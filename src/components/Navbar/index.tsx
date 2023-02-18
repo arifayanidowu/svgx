@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { AppBar, IconButton, Toolbar, useMediaQuery } from "@mui/material";
+import { useState, useEffect, useCallback } from "react";
+import { AppBar, Toolbar, useMediaQuery } from "@mui/material";
 import Logo from "./Logo";
 import DesktopNav from "./DesktopNav";
 import MobileNav from "./MobileNav";
@@ -11,6 +11,7 @@ const Navbar = () => {
   const matches = useMediaQuery("(min-width:600px)");
   const { isLightMode } = useAppSelector((state) => state.app);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const toggle = useCallback(() => dispatch(onToggleMode()), []);
   const open = Boolean(anchorEl);
 
   useEffect(() => {
@@ -63,9 +64,7 @@ const Navbar = () => {
                 anchorEl,
                 toggleMenu,
                 isLightMode: isLightMode!,
-                toggleMode: () => {
-                  dispatch(onToggleMode());
-                },
+                toggleMode: toggle,
               }}
             />
           ) : (
