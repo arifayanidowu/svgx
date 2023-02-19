@@ -56,6 +56,9 @@ const Index = () => {
               mode="tsx"
               code={code}
               name="svg-editor"
+              onChange={(value) => {
+                setCode(value);
+              }}
               onPaste={(value) => {
                 setCode(value);
               }}
@@ -68,7 +71,7 @@ const Index = () => {
             <ClipboardCopy onCopy={handleCopy} text={clipboardText} />
           )}
           {!loading ? null : <SkeletonLoader />}
-          {isFailed ? <Failed /> : null}
+          {isFailed && code.length ? <Failed /> : null}
           <Editor
             mode="tsx"
             code={prettyOutput!}

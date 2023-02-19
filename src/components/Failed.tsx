@@ -33,7 +33,7 @@ export const Failed = () => {
   const { animate, reload } = useEditor();
 
   return (
-    <StyledBox>
+    <StyledBox property={animate?.toString()}>
       <Box>
         <BigCloseIcon
           fontSize="large"

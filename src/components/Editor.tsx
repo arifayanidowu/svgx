@@ -10,7 +10,7 @@ interface IEditorProps {
   mode: string;
   name: string;
   code: string;
-  onChange?: (value: string, event: any) => void;
+  onChange?: (value: string) => void;
   onPaste?: (value: string) => void;
   debounceChangePeriod?: number;
   isReadOnly: boolean;
@@ -21,6 +21,7 @@ export const Editor = ({
   mode,
   name,
   code,
+  onChange,
   onPaste,
   debounceChangePeriod,
   isReadOnly,
@@ -36,6 +37,7 @@ export const Editor = ({
       fontSize={12}
       showPrintMargin={true}
       showGutter={true}
+      onChange={onChange}
       onPaste={onPaste}
       highlightActiveLine={true}
       value={code}
