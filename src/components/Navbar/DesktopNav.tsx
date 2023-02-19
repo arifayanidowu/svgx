@@ -18,6 +18,7 @@ import {
   onToggleSingleQuote,
   onToggleMode,
 } from "../../state/slices/appSlice";
+import { useEditor } from "../../hooks";
 
 const label = { inputProps: { "aria-label": "Size switch demo" } };
 
@@ -47,8 +48,8 @@ const css = (animate: boolean) => ({
 
 const DesktopNav = () => {
   const dispatch = useAppDispatch();
+  const { animate, reload } = useEditor();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [animate, setAnimate] = useState(false);
   const { framework, isSingleQuote, isLightMode } = useAppSelector(
     (state) => state.app
   );
@@ -61,14 +62,6 @@ const DesktopNav = () => {
   const handleChangeFramework = (framework: "react" | "react-native") => {
     dispatch(onChangeFramework(framework));
     setAnchorEl(null);
-  };
-
-  const reload = () => {
-    setAnimate(true);
-    setTimeout(() => {
-      window.location.reload();
-      setAnimate(false);
-    }, 2000);
   };
 
   return (

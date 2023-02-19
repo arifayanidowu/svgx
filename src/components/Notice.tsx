@@ -41,7 +41,7 @@ interface INotice {
   visible: boolean;
 }
 
-const Notice = ({ title, visible }: INotice) => {
+export const Notice = ({ title, visible }: INotice) => {
   const matches = useMediaQuery("(max-width:600px)");
   const { isLightMode } = useAppSelector((state) => state.app);
 

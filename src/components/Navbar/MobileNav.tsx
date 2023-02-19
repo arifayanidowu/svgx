@@ -3,7 +3,7 @@ import { Lightbulb } from "@mui/icons-material";
 import { GithubLink } from "./DesktopNav";
 import MobileDropdown from "./MobileDropdown";
 import { CustomMenuProps } from "./CustomMenu";
-import ReactIcon from "../icons/ReactIcon";
+import { ReactIcon } from "../icons/";
 
 interface IMobileNav
   extends Pick<CustomMenuProps, "anchorEl" | "open" | "handleClose"> {

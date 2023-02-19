@@ -1,14 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import type { IToastProps } from "../components";
-import { useAppDispatch, useAppSelector } from "../state/hooks";
-import { onLoad, onLoaded } from "../state/slices/appSlice";
+import { useAppSelector } from "../state/hooks";
 import { getOutput, svgTagsToUpperCase } from "../utils";
 
 export const useEditor = () => {
-  const dispatch = useAppDispatch();
   const [code, setCode] = useState("");
   const [output, setOutput] = useState("");
   const [clipboardText, setClipboardText] = useState("Copy");
+  const [isFailed, setIsFailed] = useState(false);
+  const [animate, setAnimate] = useState(false);
   const [toast, setToast] = useState<
     Omit<IToastProps, "handleClose" | "timeout">
   >({
@@ -16,14 +16,7 @@ export const useEditor = () => {
     message: "",
     severity: undefined,
   });
-  const { loading, framework } = useAppSelector((state) => state.app);
-
-  useEffect(() => {
-    dispatch(onLoad());
-    setTimeout(() => {
-      dispatch(onLoaded());
-    }, 1500);
-  }, [dispatch, onLoad]);
+  const { framework } = useAppSelector((state) => state.app);
 
   useEffect(() => {
     if (code.length) {
@@ -47,8 +40,10 @@ export const useEditor = () => {
           );
           const convertedOutput = svgTagsToUpperCase(cleanedOutput); // Convert svg tags to uppercase
           setOutput(framework === "react-native" ? convertedOutput : output!);
+          setIsFailed(false);
         } catch (error: unknown) {
           let err = error as { message: string };
+          setIsFailed(true);
           setToast({
             message: err?.message,
             severity: "error",
@@ -66,11 +61,12 @@ export const useEditor = () => {
     if (reason === "clickaway") {
       return;
     }
-    setToast({
+    setToast((prev) => ({
+      ...prev,
       open: false,
       message: "",
-      severity: undefined,
-    });
+      severity: prev.severity,
+    }));
   };
 
   const handleCopy = () => {
@@ -86,6 +82,14 @@ export const useEditor = () => {
     }, 2000);
   };
 
+  const reload = useCallback(() => {
+    setAnimate(true);
+    setTimeout(() => {
+      window.location.reload();
+      setAnimate(false);
+    }, 2000);
+  }, []);
+
   return {
     code,
     setCode,
@@ -96,6 +100,8 @@ export const useEditor = () => {
     setClipboardText,
     handleClose,
     handleCopy,
-    appLoading: loading,
+    isFailed,
+    reload,
+    animate,
   };
 };

@@ -7,8 +7,9 @@ import {
   Toast,
   Editor,
   SkeletonLoader,
+  Failed,
+  Notice,
 } from "../components";
-import Notice from "../components/Notice";
 import { useEditor } from "../hooks";
 import { useAppSelector } from "../state/hooks";
 import { parseCode } from "../utils";
@@ -22,9 +23,11 @@ const Index = () => {
     clipboardText,
     handleCopy,
     handleClose,
-    appLoading,
+    isFailed,
   } = useEditor();
-  const { framework, isSingleQuote } = useAppSelector((state) => state.app);
+  const { framework, isSingleQuote, loading } = useAppSelector(
+    (state) => state.app
+  );
   const prettyOutput = useMemo(
     () => parseCode(output)({ singleQuote: isSingleQuote! }),
     [output, isSingleQuote]
@@ -43,7 +46,7 @@ const Index = () => {
       >
         <Grid item md={6} sx={{ position: "relative", width: "100%" }}>
           <>
-            {appLoading ? (
+            {loading ? (
               <SkeletonLoader />
             ) : (
               !code && <FileUpload setCode={setCode} />
@@ -64,7 +67,8 @@ const Index = () => {
           {!output ? null : (
             <ClipboardCopy onCopy={handleCopy} text={clipboardText} />
           )}
-          {!appLoading ? null : <SkeletonLoader />}
+          {!loading ? null : <SkeletonLoader />}
+          {isFailed ? <Failed /> : null}
           <Editor
             mode="tsx"
             code={prettyOutput!}

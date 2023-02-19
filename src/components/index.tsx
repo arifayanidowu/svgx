@@ -6,3 +6,6 @@ export * from "./Layout";
 export * from "./Toast";
 export * from "./SkeletonLoader";
 export * from "./Text";
+export * from "./icons";
+export * from "./Notice";
+export * from "./Failed";
